@@ -8,8 +8,12 @@ class Human:
 
 anuj = Human("Anuj Garg")
 
+Human.sayHello(anuj)
+
 anuj.sayHello()
 
-ravi = Human()
-
-ravi.sayHello()
+# anuj.sayHello()
+#
+# ravi = Human()
+#
+# ravi.sayHello()
