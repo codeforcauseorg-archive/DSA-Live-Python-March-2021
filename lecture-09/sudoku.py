@@ -31,21 +31,22 @@ def sudoku(grid, row, col):
         sudoku(grid, row, col + 1)
 
 
-
-
 def isSafe(grid, row, col, value):
 
+    # check col
     for r in range(9):
         if(grid[r][col] == value):
             return False
 
+    # check row
     for c in range(9):
         if (grid[row][c] == value):
             return False
 
+
+    # check grid
     cr = row - (row%3)
     cc = col - (col%3)
-
     for r in range(cr, cr+3):
         for c in range(cc, cc+3):
             if grid[r][c] == value:
