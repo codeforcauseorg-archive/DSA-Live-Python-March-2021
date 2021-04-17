@@ -1,3 +1,5 @@
+import random
+
 def mergeSort(nums):
 
     if len(nums) < 2:
@@ -36,3 +38,13 @@ def merge(first, second):
         j += 1
 
     return result
+
+
+items = []
+
+for i in range(30):
+    items.append(random.randint(10, 40))
+
+print(items)
+print(mergeSort(items))
+
