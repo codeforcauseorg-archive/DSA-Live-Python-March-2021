@@ -1,28 +1,36 @@
-hours = [False] * 4
-minutes = [False] * 6
+leds = [False] * 10
 
-def clock(n, hours, minutes, h, m, posh, posm):
+def populate(leds):
 
-    if(posm > 5 or posh > 3):
+    hours, minutes = 0, 0
+
+    for h in range(0, 4):
+        if leds[h]:
+            hours += (2**h)
+
+    for m in range(4, 10):
+        if leds[m]:
+            minutes += (2**(m-4))
+
+    return hours, minutes
+
+def clock(n, leds,  index):
+
+    if(len(leds) == index):
+        if(n == 0):
+            hours, minutes = (populate(leds))
+            if((hours < 12) and (minutes < 60)):
+                print(hours, minutes)
         return
 
-    if(n == 0):
-        if(h < 12 and m < 60):
-            print(str(h) + ":" +str(m))
-        return
+    if n > 0:
+        leds[index] = True
+        clock(n-1, leds, index+1)
+        leds[index] = False
 
-    for pos in range(posh, len(hours)):
-        if not hours[pos]:
-            hours[pos] = True
-            clock(n-1, hours, minutes, h + (2**pos), m, pos+1, posm)
-            hours[pos] = False
-
-    for pos in range(posm, len(minutes)):
-        if not minutes[pos]:
-            minutes[pos] = True
-            clock(n-1, hours, minutes, h, m + (2**pos), posh, pos+1)
-            minutes[pos] = False
+    clock(n, leds, index+1)
 
 
-clock(2, hours, minutes, 0, 0, 0, 0)
+
+clock(2, leds, 0)
 
