@@ -15,4 +15,10 @@ class CustomQueue:
     def size(self):
         return len(self.__data)
 
+queue = CustomQueue()
 
+for i in range(1000000):
+    queue.insert(i)
+
+for i in range(1000000):
+    queue.remove()
