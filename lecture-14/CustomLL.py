@@ -80,8 +80,17 @@ class CustomLinkedList:
 
         return value
 
-
-
+    def removeFrom(self, index):
+        if index == 0:
+            return self.removeFirst()
+        elif index == self.__size - 1:
+            return self.removeLast()
+        else:
+            prev = self.__getItem(index-1)
+            value = prev.nxt.value
+            prev.nxt = prev.nxt.nxt
+            self.__size -= 1
+            return value
 
     def __repr__(self):
         output = []
@@ -90,6 +99,8 @@ class CustomLinkedList:
             output.append(node.value)
             node = node.nxt
         return "->".join(output)
+
+
 
 
 ll = CustomLinkedList()
