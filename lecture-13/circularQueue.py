@@ -35,14 +35,30 @@ class CircularQueue:
     def size(self):
         return self.__size
 
+    def display(self):
+        for i in range(self.__size):
+            print(self.__data[(self.__front + i) % len(self.__data)], end=" ")
+        print()
+
 
 queue = CircularQueue()
 
-for i in range(1000000):
+for i in range(10):
     queue.insert(i)
 
-for i in range(1000000):
-    queue.delete()
+queue.display()
+
+queue.delete()
+
+queue.display()
+
+queue.delete()
+
+queue.display()
+
+queue.insert(5)
+
+queue.display()
 
 
 
