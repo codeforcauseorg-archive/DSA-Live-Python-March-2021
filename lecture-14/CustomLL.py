@@ -33,6 +33,55 @@ class CustomLinkedList:
 
         self.__size += 1
 
+    def __getItem(self, index):
+
+        node = self.__head
+        for i in range(0, index):
+            node = node.nxt
+
+        return node
+
+    def insertAt(self, value, index):
+
+        if index == 0:
+            self.insertFirst(value)
+        elif index == self.__size:
+            self.insertLast(value)
+        else:
+            prev = self.__getItem(index-1)
+            node = Node(value)
+            node.nxt = prev.nxt
+            prev.nxt = node
+            self.__size += 1
+
+    def removeFirst(self):
+
+        value = self.__head.value
+
+        self.__head = self.__head.nxt
+        self.__size -= 1
+
+        if self.__size == 0:
+            self.__tail = None
+
+        return value
+
+    def removeLast(self):
+        if self.__size == 1:
+            return self.removeFirst()
+
+        value = self.__tail.value
+
+        prev = self.__getItem(self.__size - 2)
+        self.__tail = prev
+        prev.nxt = None
+
+        self.__size -= 1
+
+        return value
+
+
+
 
     def __repr__(self):
         output = []
@@ -50,5 +99,21 @@ ll.insertFirst("Shubham")
 
 ll.insertLast("Nikita")
 ll.insertLast("Khan")
+
+print(ll)
+
+ll.insertAt("Suraj", 1)
+
+print(ll)
+
+ll.removeFirst()
+
+print(ll)
+
+ll.removeFirst()
+
+print(ll)
+
+ll.removeLast()
 
 print(ll)
