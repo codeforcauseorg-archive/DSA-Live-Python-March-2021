@@ -42,9 +42,6 @@ class BST:
 
         return temp
 
-
-
-
     def min(self):
         node = self.root
         if not node:
