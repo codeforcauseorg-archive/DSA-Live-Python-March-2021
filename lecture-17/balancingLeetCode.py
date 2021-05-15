@@ -1,8 +1,23 @@
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def balanceBST(self, root):
+        bst = BST()
+        self.inorder(root, bst)
+
+        return bst.root
+
+    def inorder(self, node, bst):
+        if not node:
+            return
+
+        self.inorder(node.left, bst)
+        bst.insert(node.val)
+        self.inorder(node.right, bst)
 
 
 class Node(TreeNode):
@@ -16,7 +31,6 @@ class BST:
 
     def __init__(self):
         self.root = None
-
 
     def insert(self, val):
         self.root = self.__insert(val, self.root)
@@ -42,7 +56,6 @@ class BST:
             return 0
 
         return node.height
-
 
     def __copy(self, node):
         if not node:
@@ -79,7 +92,6 @@ class BST:
         y.height = 1 + max(BST.height(y.left), BST.height(y.right))
         x.height = 1 + max(BST.height(x.left), BST.height(x.right))
 
-
         return x
 
     @classmethod
@@ -111,14 +123,4 @@ class BST:
             node = BST.leftRotate(node)
 
         return node
-
-
-tree = BST()
-
-for item in range(1000):
-    tree.insert(item)
-
-
-print(tree.root.height)
-
 
