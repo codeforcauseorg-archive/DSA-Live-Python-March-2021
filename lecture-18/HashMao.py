@@ -84,8 +84,12 @@ class HashMap:
 
 d = HashMap()
 
-for i in range(100000):
-    d.set(i, i)
+d.set((1, 4), "Huhaha")
+
+print(d.get((1, 4)))
+
+# for i in range(100000):
+#     d.set(i, i)
 
 # print(d.data)
 
