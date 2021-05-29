@@ -15,20 +15,19 @@ class Graph:
             vertex = Vertex(value)
             self.vertices[value] = vertex
 
-
-    def create_edge(self, first, second):
+    def create_edge(self, first, second, weight):
 
         if (first in self.vertices) and (second in self.vertices):
             vfirst = self.vertices[first]
             vsecond = self.vertices[second]
 
-            vfirst.neighbours.append(vsecond)
-            vsecond.neighbours.append(vfirst)
+            vfirst.neighbours.append((vsecond, weight))
+            vsecond.neighbours.append((vfirst, weight))
 
     def display(self):
         for vertex in self.vertices.values():
             print(vertex.value, end=" => ")
-            print(", ".join([neighbour.value for neighbour in vertex.neighbours]))
+            print(", ".join([str(neighbour.value) + " : " + str(weight) for (neighbour, weight) in vertex.neighbours]))
 
     def dft(self, value):
         start = self.vertices[value]
@@ -42,7 +41,7 @@ class Graph:
             top = stack.pop()
             print(top.value)
 
-            for neighbour in top.neighbours:
+            for neighbour, weight in top.neighbours:
                 if neighbour not in to_process:
                     stack.append(neighbour)
                     to_process.add(neighbour)
@@ -60,13 +59,13 @@ class Graph:
             if top.value == target:
                 return True
 
-            for neighbour in top.neighbours:
+            for neighbour, weight in top.neighbours:
                 if neighbour not in to_process:
                     stack.append(neighbour)
                     to_process.add(neighbour)
 
         return False
-
+    #
     def bft(self, value):
         start = self.vertices[value]
         queue = []
@@ -79,31 +78,7 @@ class Graph:
             top = queue.pop(0)
             print(top.value)
 
-            for neighbour in top.neighbours:
-                if neighbour not in to_process:
-                    queue.append(neighbour)
-                    to_process.add(neighbour)
-
-    def min_dist_eq(self, value):
-        start = self.vertices[value]
-        queue = []
-        to_process = set()
-
-        queue.append(start)
-        to_process.add(start)
-        queue.append(None)
-        layer = 0
-
-        while len(queue) > 1:
-            top = queue.pop(0)
-
-            if not top:
-                queue.append(None)
-                layer += 1
-                continue
-
-            print(top.value, layer)
-            for neighbour in top.neighbours:
+            for neighbour, weight in top.neighbours:
                 if neighbour not in to_process:
                     queue.append(neighbour)
                     to_process.add(neighbour)
@@ -125,7 +100,7 @@ class Graph:
                 top = stack.pop()
 
                 component.append(top.value)
-                for neighbour in top.neighbours:
+                for neighbour, weight in top.neighbours:
                     if neighbour not in to_process:
                         stack.append(neighbour)
                         to_process.add(neighbour)
@@ -143,11 +118,11 @@ graph.create_vertex("D")
 graph.create_vertex("E")
 graph.create_vertex("F")
 
-graph.create_edge("A", "B")
-graph.create_edge("C", "B")
+graph.create_edge("A", "B", 10)
+graph.create_edge("C", "B", 20)
 
-graph.create_edge("E", "D")
-graph.create_edge("F", "D")
+graph.create_edge("E", "D", 30)
+graph.create_edge("F", "D", 40)
 
 print(graph.connected_components())
 
